@@ -35,7 +35,7 @@ Nodo* ABB::buscar(Nodo* nodo,string dato){
     return nullptr;
 }
 
-void ABB::insertar(Nodo *nodo,string dato){
+Nodo* ABB::insertar(Nodo *nodo,string dato){
     string clave_padre = nodo->obtenerClave();
     //
     if ( clave_padre < dato ){
@@ -47,6 +47,7 @@ void ABB::insertar(Nodo *nodo,string dato){
             Nodo* nuevo = new Nodo(dato,nodo);
             nodo->cambiarHijoDerecho(nuevo);
             this->cantidad_elementos++;
+            return nuevo;
         }
     } else if ( clave_padre > dato ){
         // es menor que el nodo padre
@@ -57,8 +58,11 @@ void ABB::insertar(Nodo *nodo,string dato){
             Nodo* nuevo = new Nodo(dato,nodo);
             nodo->cambiarHijoIzquierdo(nuevo);
             this->cantidad_elementos++;
+            return nuevo;
         }
     }
+    //
+    return nullptr;
 }
 
 void ABB::eliminarHoja(Nodo *nodo){
@@ -149,16 +153,18 @@ bool ABB::buscar(string dato){
     return ( this->buscar(this->raiz,dato) != nullptr);
 }
 
-bool ABB::insertar(string dato){
+bool ABB::insertar(string clave,Aeropuerto* datos){
     int cant_anterior = this->cantidad_elementos;
     //
     if ( this->raiz == nullptr ){
-        this->raiz = new Nodo(dato,nullptr);
+        this->raiz = new Nodo(clave,nullptr);
         this->cantidad_elementos++;
-        return true;    
+        this->raiz->cambiarDato(datos);
+        return true;
     }
     //
-    this->insertar(this->raiz,dato);
+    Nodo* nuevo = this->insertar(this->raiz,clave);
+    nuevo->cambiarDato(datos);
     //
     return ( (this->cantidad_elementos-cant_anterior) == 1 );
 }
@@ -186,6 +192,10 @@ int ABB::altura(string dato){
     }
     //
     return altura;
+}
+
+int ABB::cantidad(){
+    return this->cantidad_elementos;
 }
 
 ABB::~ABB(){

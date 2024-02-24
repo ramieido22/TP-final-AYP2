@@ -28,6 +28,17 @@ class Nodo {
         Nodo(string IATA,Nodo* padre,Nodo* pn_izq,Nodo* pn_der);
 
         /**
+         * Constructor de copia
+        */
+        Nodo(const Nodo* pn);
+
+        /**
+         * POST: devuelve el nodo padre
+         * del nodo dado
+        */
+        Nodo* obtenerPadre(void);
+
+        /**
          * POST: devuelve el nodo del 
          * hijo izquierdo
         */
@@ -52,22 +63,47 @@ class Nodo {
         */
         Aeropuerto* obtenerDatos(void);
 
-        Nodo* obtenerPadre(void);
-
         /**
-         * 
+         * PRE: pasar el nuevo codigo IATA
+         * POST: cambiar la clave por 
+         * el codigo pasado
         */
         void cambiarClave(string IATA);
 
+        /**
+         * PRE: pasar el nuevo hijo derecho
+         * POST: se establece el nodo parametro
+         * pasado como hijo derecho del nodo
+        */
         void cambiarHijoDerecho(Nodo *pn);
 
+        /**
+         * PRE: pasar el nuevo hijo izquierdo
+         * POST: se establece el nodo parametro
+         * pasado como hijo izquierdo del nodo
+        */
         void cambiarHijoIzquierdo(Nodo *pn);
 
+        /**
+         * PRE: pasar el nuevo padre
+         * POST: se establece el nodo parametro
+         * pasado como padre del nodo
+        */
         void cambiarPadre(Nodo *pn);
 
+        void cambiarDato(Aeropuerto* pn);
+
+        /**
+         * POST: si el nodo de parametro 
+         * es uno de los hijos del nodo ,
+         * entonces se desasigna de su
+         * posicion como hijo, si no 
+         * no se cambia nada en el nodo
+        */
         void desasignarHijo(Nodo *pn);
 
         /**
+         * Destructor
          * POST: elimina los
          * nodos vinculados al nodo
         */

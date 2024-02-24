@@ -3,6 +3,7 @@
 #define ABB_H_INCLUDED
 
 #include "Nodo.h"
+#include "Aeropuerto.h"
 
 class ABB {
     private:
@@ -21,7 +22,7 @@ class ABB {
          * va a comenzar la insercion y el dato a insertar
          * POST: el dato sera insertado si ya no esta presente en el arbol
         */
-        void insertar(Nodo* nodo,string dato);
+        Nodo* insertar(Nodo* nodo,string dato);
 
         /**
          * PRE: pasar el nodo lo cual se quiere eliminar
@@ -64,13 +65,19 @@ class ABB {
          * no existe en el arbol binario
          * POST: devuelve true si el nodo se inserta con exito y false si no
         */
-        bool insertar(string dato);
+        bool insertar(string clave,Aeropuerto* datos);
 
         /**
          * PRE: el elemento dado debe estar en el arbol
          * POST: devuelve true si el nodo se elimina con exito y false si no
         */
         bool eliminar(string dato);
+
+        /**
+         * POST: devuelve la cantidad
+         * de nodos que tiene el ABB
+        */
+        int cantidad();
 
         /**
          * Destructor de la clase

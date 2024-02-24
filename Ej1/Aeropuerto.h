@@ -20,6 +20,8 @@ class Aeropuerto {
 
     public:
 
+        Aeropuerto() = default;
+
         /**
          * Constructor
          * Genera una instancia de la
@@ -27,7 +29,13 @@ class Aeropuerto {
         */
         Aeropuerto(string IATA,string nombre,string ciudad,string pais,double area,int entero1,int entero2,int entero3);
 
-
+        /**
+         * Constructor de copia
+         * Genera una instancia de la
+         * clase Aeropuerto en base a la
+         * instancia dada
+        */
+        // Aeropuerto(const Aeropuerto* pn);
 
 };
 
