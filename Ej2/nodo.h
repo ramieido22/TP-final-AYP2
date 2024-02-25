@@ -9,7 +9,6 @@ enum ESTADO {
     NONE //estado sin valor
 };
 
-
 template<typename T>
 class Nodo {
 private:

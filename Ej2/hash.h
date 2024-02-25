@@ -1,44 +1,57 @@
 #ifndef HASH_H
 #define HASH_H
-
 #include <iostream>
 #include <cmath>
 #include "lista.h"
 
 using namespace std;
 
-
 const float factor_carga = 0.8;
 
 //Utilizacion del Hash base para poder elegir en el main que tipo de hash se quiere utilizar.
+
 template<typename K, class V>
 class Hash {
 public:
+    //Constructor
     virtual ~Hash() {}
 
+    //pre: --
+    //post: Devuelve la cantidad de elementos
     virtual int ver_cantidad()=0;
 
+    //pre: -- 
+    //post: Devuelve true si el hash esta vacio, de lo contrario devuelve false
     virtual bool esta_vacio()=0;
 
+    //pre:--
+    //post: Asocia un valor con una clave en el hash.
     virtual void agregar(K clave, V* valor)=0;
 
-    //pre:
-    //post:
+    //pre:  Debe pertenecer la clave
+    //post: Devuelve el valor asociado a la clave
     virtual V* buscar(K clave)=0;
 
-    //pre:
-    //post:
+    //pre: Debe pertenecer la clave
+    //post: Elimina el valor asociado a la clave
     virtual void eliminar(K clave)=0;
 
-    //pre:
-    //post:
+    //pre: -- 
+    //post: Devuelve true si la clave esta en el hash, de lo contrario devuelve false
     virtual bool pertenece(K clave)=0;
 
 protected:
+    //Atributos
     int cantidad;
 
+    //Metodos
+    
+    //pre: --
+    //post: Transforma el texto IATA en un numero de base 128 % tamanio
     int transformar_IATA_en_INT(K clave);
     
+    //pre:
+    //post: Devuelve el valor de la funcion hash de la clave
     int funcion_hash(K clave);
 };
 
@@ -67,46 +80,50 @@ private:
     //Atributos
     static const int tamanio = 67; //Como maximo voy a tener 50 aeropuertos, divido por el 0.8 y busco el primer numero primo. 67 en este caso.
     Nodo<V>* tabla[tamanio];
-
-    //Metodos
-    //pre:
-    //post:
-    Nodo<V>* buscar_nodo(K clave);
-
     int cantidad;
 
+    //Metodos
+
+    //pre: --
+    //post: Busca un nodo en la tabla del hash
+    Nodo<V>* buscar_nodo(K clave);
+
+    //pre: --
+    //post: Transforma el texto IATA en un numero de base 128 % tamanio
     int transformar_IATA_en_INT(K clave);
     
+    //pre:
+    //post: Devuelve el valor de la funcion hash de la clave
     int funcion_hash(K clave);
-
 
 public:
     //Constructor
     Hash_cerrado();
 
     //Metodos
-    //pre:
-    //post:
+
+    //pre:--
+    //post: Asocia un valor con una clave en el hash.
     void agregar(K clave, V* valor) override;
 
-    //pre:
-    //post:
+    //pre:  Debe pertenecer la clave
+    //post: Devuelve el valor asociado a la clave
     V* buscar(K clave) override;
 
-    //pre:
-    //post:
+    //pre: Debe pertenecer la clave
+    //post: Elimina el valor asociado a la clave
     void eliminar(K clave) override;
 
-    //pre:
-    //post:
+    //pre: -- 
+    //post: Devuelve true si la clave esta en el hash, de lo contrario devuelve false
     bool pertenece(K clave) override;
 
-    //pre:
-    //post:
+    //pre: --
+    //post: Devuelve la cantidad de elementos
     int ver_cantidad() override;
 
-    //pre:
-    //post:
+    //pre: -- 
+    //post: Devuelve true si el hash esta vacio, de lo contrario devuelve false
     bool esta_vacio() override;
     
     //Destructor
@@ -241,37 +258,42 @@ private:
 
     int cantidad;
 
+    //Metodos
+    //pre: --
+    //post: Transforma el texto IATA en un numero de base 128 % tamanio
     int transformar_IATA_en_INT(K clave);
     
+    //pre:
+    //post: Devuelve el valor de la funcion hash de la clave
     int funcion_hash(K clave);
-
 public:
     //Constructor
     Hash_abierto();
 
     //Metodos
-    //pre:
-    //post:
+
+    //pre:--
+    //post: Asocia un valor con una clave en el hash.
     void agregar(K clave, V* valor) override;
 
-    //pre:
-    //post:
+    //pre:  Debe pertenecer la clave
+    //post: Devuelve el valor asociado a la clave
     V* buscar(K clave) override;
 
-    //pre:
-    //post:
+    //pre: Debe pertenecer la clave
+    //post: Elimina el valor asociado a la clave
     void eliminar(K clave) override;
 
-    //pre:
-    //post:
+    //pre: -- 
+    //post: Devuelve true si la clave esta en el hash, de lo contrario devuelve false
     bool pertenece(K clave) override;
 
-    //pre:
-    //post:
+    //pre: --
+    //post: Devuelve la cantidad de elementos
     int ver_cantidad() override;
 
-    //pre:
-    //post:
+    //pre: -- 
+    //post: Devuelve true si el hash esta vacio, de lo contrario devuelve false
     bool esta_vacio() override;
     
     //Destructor
@@ -378,7 +400,6 @@ template<typename K, class V>
 bool Hash_abierto<K,V>::esta_vacio(){
     return (this->cantidad == 0);
 }
-
 
 // Destructor
 template<typename K, class V>

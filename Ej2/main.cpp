@@ -23,6 +23,7 @@ int main(){
     }
     
     bucle_buscador(hash_aeropuertos,tabla_ciu_iata);
+    
     delete hash_aeropuertos;
     delete tabla_ciu_iata;
     return 0;
