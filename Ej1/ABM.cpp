@@ -139,7 +139,7 @@ void ABM::baja(){
     while ( !valido && !cancela ){
         this->preguntarCiudad(ciudad);
         //
-        if ( !this->aeropuertos.estaEnArbol(ciudad) ){
+        if ( this->ciudad_IATA.estaEnArbol(ciudad) ){
             valido = true;
         } else {
             cout << "El aeropuerto no se encuentra en los datos del sistema" << endl;
@@ -147,14 +147,16 @@ void ABM::baja(){
         }
     }
     //
-    Aeropuerto* buscado = this->aeropuertos.obtenerDato(ciudad);
-    int posicion_en_lista = this->datos_aeropuertos.buscarPosicion(buscado);
-    //
-    this->aeropuertos.eliminar(ciudad);
-    this->ciudad_IATA.eliminar(buscado->obtenerCiudad());
-    this->datos_aeropuertos.baja(posicion_en_lista);
-    cout << "El aeropuerto: " << buscado->obtenerNombre() << " fue eliminado con exito!" << endl;
-    delete buscado;
+    if ( !cancela ){
+        Aeropuerto* buscado = this->ciudad_IATA.obtenerDato(ciudad);
+        int posicion_en_lista = this->datos_aeropuertos.buscarPosicion(buscado);
+        //
+        this->ciudad_IATA.eliminar(ciudad);
+        this->aeropuertos.eliminar(buscado->obtenerIATA());
+        this->datos_aeropuertos.baja(posicion_en_lista);
+        cout << "El aeropuerto: " << buscado->obtenerNombre() << " fue eliminado con exito!" << endl;
+        delete buscado;
+    }
 }
 
 void ABM::consulta(){
