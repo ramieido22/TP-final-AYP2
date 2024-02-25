@@ -84,7 +84,6 @@ Aeropuerto* seleccionar_ciudad(Hash<string,Aeropuerto>* hash_aeropuertos,Tabla_i
 }
 
 void bucle_buscador(Hash<string,Aeropuerto>* hash_aeropuertos,Tabla_iata* tabla){
-    int eleccion_de_datos_aeropuerto;
     int eleccion_de_menu_general = eleccion_agregar_o_seleccionar();
     Aeropuerto* nuevo_aeropuerto;
     cout << " "<< endl; 

@@ -6,7 +6,7 @@
 
 using namespace std;
 
-const float factor_carga = 0.8;
+const double factor_carga = 0.8;
 
 //Utilizacion del Hash base para poder elegir en el main que tipo de hash se quiere utilizar.
 
@@ -146,7 +146,7 @@ int  Hash_cerrado<K,V>::transformar_IATA_en_INT(K clave){
         const int base = 128;
         int valor = 0;
         for (int i = 0; i <3; i++){
-            valor += clave[i] * pow(base,i); //llevo a base de 128
+            valor +=static_cast<int>(clave[i] * pow(base,i)); //llevo a base de 128
         }
     return valor;
     };
@@ -315,7 +315,7 @@ int  Hash_abierto<K,V>::transformar_IATA_en_INT(K clave){
         const int base = 128;
         int valor = 0;
         for (int i = 0; i <3; i++){
-            valor += clave[i] * pow(base,i); //llevo a base de 128
+            valor += static_cast<int>(clave[i] * pow(base,i)); //llevo a base de 128
         }
     return valor;
     };
