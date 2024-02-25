@@ -5,7 +5,7 @@
 #include "ABB.h"
 #include "Menu.h"
 #include "Aeropuerto.h"
-#include "Pila.h"
+#include "Lista.h"
 
 class ABM {
     private:
@@ -20,7 +20,7 @@ class ABM {
          * Pila en donde se graban los datos que
          * se levantaron de la base de datos
         */
-        Pila<Aeropuerto*> datos_aeropuertos;
+        Lista<Aeropuerto*> datos_aeropuertos;
 
         /**
          * El menu del ABM que se
@@ -68,7 +68,14 @@ class ABM {
         */
         void alta();
 
-        // void baja();
+        /**
+         * Metodo que da de baja un
+         * aeropuerto , el aeropuerto
+         * es elegido por el usuario
+         * POST: se da de baja el aeropuerto solicitado
+         * por el usuario
+        */
+        void baja();
 
         /**
          * Destructor

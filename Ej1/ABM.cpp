@@ -4,6 +4,7 @@
 
 using std::cout;
 using std::cin;
+using std::endl;
 
 ABM::ABM(){
     std::ifstream file;
@@ -17,11 +18,13 @@ ABM::ABM(){
     int cantidad_terminales;
     int destinos_nacionales;
     int destinos_internacionales;
+    Aeropuerto* aux;
     //
     while ( file >> IATA && file >> nombre && file >> ciudad && file >> pais && file >> area && file >> cantidad_terminales && file >> destinos_nacionales && file >> destinos_internacionales ){
-        this->datos_aeropuertos.alta(new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales));
-        this->datos_aeropuertos.consulta()->mostrarDatos();
-        this->aeropuertos.insertar(IATA,this->datos_aeropuertos.consulta());
+        aux = new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales);
+        this->datos_aeropuertos.alta(aux,1);
+        aux->mostrarDatos();
+        this->aeropuertos.insertar(IATA,aux);
     }
     //
     file.close();
@@ -55,13 +58,14 @@ void ABM::administrar(){
         } else if ( opcion == CONSULTA ){
             cout << "Consulta un aeropuerto" << std::endl;
         } else if ( opcion == BAJA ){
-            cout << "Da de baja un aeropuerto" << std::endl;
+            this->baja();
         }
     } while ( opcion != SALIDA );
 }
 
 void ABM::alta(){
     cout << "Cargue los datos del nuevo aeropuerto: \n";
+    cout << "NOTA: los espacios deben ser reemplazados por '-' \n";
     //
     string IATA;
     string nombre;
@@ -82,9 +86,8 @@ void ABM::alta(){
         cout << "Codigo del Aeropuerto IATA: ";
         cin >> IATA;
         //
-        if ( !this->aeropuertos.buscar(IATA) ){
+        if ( !this->aeropuertos.estaEnArbol(IATA) ){
             valido = true;
-            cancela = true;
         } else {
             cout << "El aeropuerto ya fue cargado anteriormente." << std::endl;
             cancela = this->cancelarOperacion();
@@ -113,18 +116,32 @@ void ABM::alta(){
     cout << "Destinos Internacionales del Aeropuerto: ";
     cin >> destinos_internacionales;
     //
-    this->datos_aeropuertos.alta(new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales));
-    this->aeropuertos.insertar(IATA,this->datos_aeropuertos.consulta());
+    this->datos_aeropuertos.alta(new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales),1);
+    this->aeropuertos.insertar(IATA,this->datos_aeropuertos.buscarDato(1));
     cout << "Los datos fueron cargados con exito." << std::endl;
 }
 
-/* void ABM::baja(){
+void ABM::baja(){
     string IATA;
     //
     cout << "Introduza el codigo IATA del aeropuerto que desea eliminar \n";
     cin >> IATA;
     //
-} */
+    Aeropuerto* aeropuerto_buscado = this->aeropuertos.obtenerDato(IATA);
+    if ( aeropuerto_buscado == nullptr ){
+        cout << "El aeropuerto no se encuentra en los datos del sistema" << endl;
+    } else {
+        //
+        int posicion_en_lista = this->datos_aeropuertos.buscarPosicion(aeropuerto_buscado);
+        //
+        this->aeropuertos.eliminar(IATA);
+        this->datos_aeropuertos.baja(posicion_en_lista);
+        //
+        cout << "El aeropuerto: " << aeropuerto_buscado->obtenerNombre() << " fue eliminado con exito!" << endl;
+        //
+        delete aeropuerto_buscado;
+    }
+}
 
 //////////// DESTRUCTOR /////////////////////
 
@@ -133,9 +150,9 @@ ABM::~ABM(){
     std::ofstream file;
     file.open("aeropuertos.txt",std::ios::out);
     //
-    Aeropuerto *aux;
+    Aeropuerto* aux;
     while ( !this->datos_aeropuertos.es_vacia() ){
-        aux = this->datos_aeropuertos.consulta();
+        aux = this->datos_aeropuertos.buscarDato(1);
         //
         file << aux->obtenerIATA() << " ";
         file << aux->obtenerNombre() << " ";
@@ -146,7 +163,7 @@ ABM::~ABM(){
         file << aux->obtenerDestinosNacionales() << " ";
         file << aux->obtenerDestinosInternacionales() << "\n";
         //
-        this->datos_aeropuertos.baja();
+        this->datos_aeropuertos.baja(1);
         delete aux;
         aux = nullptr;
     }

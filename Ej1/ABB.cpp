@@ -148,8 +148,17 @@ int ABB::calcularAltura(Nodo *nodo,int altura){
 //// FUNCIONES PUBLICAS //////
 //////////////////////////////
 
-bool ABB::buscar(string dato){
+bool ABB::estaEnArbol(string dato){
     return ( this->buscar(this->raiz,dato) != nullptr);
+}
+
+Aeropuerto* ABB::obtenerDato(string dato){
+    Nodo* buscado = this->buscar(this->raiz,dato);
+    if ( buscado != nullptr ){
+        return buscado->obtenerDatos();
+    }
+    //
+    return nullptr;
 }
 
 bool ABB::insertar(string clave,Aeropuerto* datos){

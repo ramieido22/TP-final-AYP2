@@ -61,3 +61,7 @@ int Aeropuerto::obtenerDestinosNacionales(){
 int Aeropuerto::obtenerDestinosInternacionales(){
     return this->destinos_internacionales;
 }
+
+bool Aeropuerto::operator==(const Aeropuerto &d){
+    return ( this->IATA == d.IATA );
+}

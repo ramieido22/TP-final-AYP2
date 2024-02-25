@@ -66,7 +66,15 @@ class ABB {
          * POST: devuelve true si el dato
          * se encuentra en el arbol y false si no
         */
-        bool buscar(string dato);
+        bool estaEnArbol(string dato);
+
+        /**
+         * PRE: pasa la clave del nodo como
+         * parametro
+         * POST: obtener el dato grabado en
+         * el nodo
+        */
+        Aeropuerto* obtenerDato(string dato);
 
         /**
          * PRE: debe ser un dato que
