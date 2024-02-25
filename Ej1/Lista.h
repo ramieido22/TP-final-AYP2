@@ -14,6 +14,12 @@ class Lista {
     Nodo_L<Dato>* primero;
 
     /**
+     * Referencia al nodo primer nodo
+     * de la lista
+    */
+    Nodo_L<Dato>* cursor;
+
+    /**
      * La cantidad de nodos grabados
      * en la lista
     */
@@ -64,7 +70,28 @@ class Lista {
          * POST: devuelve la cantidad de nodos
          * o elementos que tiene la lista
         */
-        bool es_vacia();
+        bool esVacia();
+        
+        /**
+         * POST: reinicia el cursor apuntandolo
+         * al primer nodo de la lista
+        */
+        void reiniciarCursor();
+
+        /**
+         * PRE: el cursor tiene no tiene que estar
+         * en la ultima posición
+         * POST: devuelve el dato del nodo donde
+         * apunta el cursor
+        */
+        Dato moverCursor();
+
+        /**
+         * POST: devuele true si el cursor
+         * llego al final de la lista , de
+         * lo contrario devuelve false
+        */
+        bool finalCursor();
 
         /**
          * Destructor
@@ -74,11 +101,16 @@ class Lista {
         ~Lista();
 };
 
+////////// CONSTRUCTOR //////////
+
 template <typename Dato>
 Lista<Dato>::Lista(){
     this->primero = nullptr;
+    this->cursor = nullptr;
     this->cant_elem = 0;
 }
+
+////////// FUNCIONES PRIVADAS //////////
 
 template <typename Dato>
 Nodo_L<Dato>* Lista<Dato>::obtenerNodo(int posicion){
@@ -89,6 +121,8 @@ Nodo_L<Dato>* Lista<Dato>::obtenerNodo(int posicion){
     //
     return buscado;
 }
+
+/////////// FUNCIONES PUBLICAS ////////////
 
 template <typename Dato>
 void Lista<Dato>::alta(Dato d,int posicion){
@@ -159,13 +193,35 @@ int Lista<Dato>::buscarPosicion(Dato d){
 }
 
 template <typename Dato>
-bool Lista<Dato>::es_vacia(){
+bool Lista<Dato>::esVacia(){
     return (this->cant_elem == 0);
 }
 
+////////// FUNCIONES DEL CURSOR /////////////
+
+template <typename Dato>
+void Lista<Dato>::reiniciarCursor(){
+    this->cursor = this->primero;
+}
+
+template <typename Dato>
+Dato Lista<Dato>::moverCursor(){
+    Dato dato = this->cursor->obtenerDato();
+    this->cursor = this->cursor->obtenerSiguiente();
+    //
+    return dato;
+}
+
+template <typename Dato>
+bool Lista<Dato>::finalCursor(){
+    return ( this->cursor == nullptr );
+}
+
+////////// DESTRUCTOR ///////////////
+
 template <typename Dato>
 Lista<Dato>::~Lista(){
-    while ( !this->es_vacia() ){
+    while ( !this->esVacia() ){
         this->baja(1);
     }
 }

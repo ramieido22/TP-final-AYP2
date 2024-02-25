@@ -2,7 +2,7 @@
 #ifndef ABMAEROPUERTOS_H_INCLUDED
 #define ABMAEROPUERTOS_H_INCLUDED
 
-#include "ABB.h"
+#include "ABB.hpp"
 #include "Menu.h"
 #include "Aeropuerto.h"
 #include "Lista.h"
@@ -11,10 +11,17 @@ class ABM {
     private:
 
         /**
-         * Arbol usado para agilizar las
-         * busquedas
+         * Arbol donde se graban los
+         * codigos IATA y una referencia
+         * a los datos
         */
-        ABB aeropuertos;
+        ABB<string,Aeropuerto> aeropuertos;
+
+        /**
+         * Arbol donde se graban los ciudades
+         * con una referencia a los datos
+        */
+       ABB<string,Aeropuerto> ciudad_IATA;
         
         /**
          * Pila en donde se graban los datos que
@@ -42,6 +49,14 @@ class ABM {
          * y false si el usuario no desea cancelar
         */
         bool cancelarOperacion();
+
+        /**
+         * PRE: hay que pasar como parametro una referencia 
+         * a una cadena
+         * POST: se almacena en la cadena pasado como parametro
+         * la ciudad cargada por el usuario
+        */
+        void preguntarCiudad(string &ciudad);
         
     public:
 
@@ -67,6 +82,17 @@ class ABM {
          * POST: se da de alta un nuevoaeropuerto
         */
         void alta();
+
+        /**
+         * Metodo que consulta los
+         * datos de un aeropuerto especifico
+         * (la busqueda es por nombre de ciudad)
+         * POST: se muestran los datos del aeropuerto,
+         * en caso de no encontrarlo permite cancelar la busqueda
+        */
+        void consulta();
+
+        void consultaGeneral();
 
         /**
          * Metodo que da de baja un

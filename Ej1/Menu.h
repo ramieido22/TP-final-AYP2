@@ -3,11 +3,12 @@
 #define MENU_H_INCLUDED
 
 enum OPCION_MENU {
-    CONSULTA=1,
-    ALTA=2,
-    BAJA=3,
-    SALIDA=4,
-    NO_DETERMINADO=5
+    CONSULTA_GENERAL=1,
+    CONSULTA=2,
+    ALTA=3,
+    BAJA=4,
+    SALIDA=5,
+    NO_DETERMINADO=6
 };
 
 class Menu {

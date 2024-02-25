@@ -84,6 +84,11 @@ class Aeropuerto {
         */
         int obtenerDestinosInternacionales();
 
+        /**
+         * POST: devuelve true si los dos
+         * objetos de aeropuerto comparados
+         * tienen la misma clave IATA
+        */
         bool operator==(const Aeropuerto &d);
 };
 

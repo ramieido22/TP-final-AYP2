@@ -1,4 +1,5 @@
-BHI Aeropuerto-Comandante-Espora Bahía-Blanca Argentina 45 35 23 10
-AEP Aeroparque-Jorge-Newbery Ciudad-buenos-aires Argentina 34.75 4 12 46
-LAX Aeropuerto-Internacional-de-los-Angeles Los-Angeles EEUU 14 9 87 69
+ATI Aeropuerto-Internacional-de-Artigas Artigas Uruguay 20 4 35 10
 EZE Ministro-Pistarini Ezeiza Argentina 34.75 4 12 46
+LAX Aeropuerto-Internacional-de-los-Angeles Los-Angeles EEUU 14 9 87 69
+AEP Aeroparque-Jorge-Newbery Ciudad-buenos-aires Argentina 34.75 4 12 46
+BHI Aeropuerto-Comandante-Espora Bahía-Blanca Argentina 45 35 23 10

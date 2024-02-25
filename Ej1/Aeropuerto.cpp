@@ -2,6 +2,7 @@
 #include "Aeropuerto.h"
 
 using std::cout;
+using std::endl;
 
 ///////////// CONSTRUCTOR //////////////////
 
@@ -18,7 +19,9 @@ Aeropuerto::Aeropuerto(string IATA,string nombre,string ciudad,string pais,doubl
 
 
 void Aeropuerto::mostrarDatos(){
-    cout << "/////////// Aeropuerto: " << this->nombre << " ////////////////// \n";
+    cout << "///////////////////////////// \n";
+    // cout << "/////////// Aeropuerto: " << this->nombre << " ////////////////// \n";
+    cout << "Aeropuerto: " << this->nombre << "\n";
     cout << "Codigo IATA: " << this->IATA << "\n";
     cout << "Ciudad (donde esta ubicado): " << this->ciudad << "\n";
     cout << "País: " << this->pais << "\n";
@@ -26,6 +29,7 @@ void Aeropuerto::mostrarDatos(){
     cout << "Cantidad de Terminales: " << this->cantidad_terminales << "\n";
     cout << "Destinos Nacionales: " << this->destinos_nacionales << "\n";
     cout << "Destinos Internacionales: " << this->destinos_internacionales << "\n";
+    cout << "///////////////////////////// " << endl;
 }
 
 ///////// GETTERS /////////

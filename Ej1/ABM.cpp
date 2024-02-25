@@ -10,21 +10,16 @@ ABM::ABM(){
     std::ifstream file;
     file.open("aeropuertos.txt",std::ios::in);
     //
-    string IATA;
-    string nombre;
-    string ciudad;
-    string pais;
+    string IATA, nombre, ciudad, pais;
     double area;
-    int cantidad_terminales;
-    int destinos_nacionales;
-    int destinos_internacionales;
+    int cantidad_terminales,destinos_nacionales,destinos_internacionales;
     Aeropuerto* aux;
     //
     while ( file >> IATA && file >> nombre && file >> ciudad && file >> pais && file >> area && file >> cantidad_terminales && file >> destinos_nacionales && file >> destinos_internacionales ){
         aux = new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales);
         this->datos_aeropuertos.alta(aux,1);
-        aux->mostrarDatos();
         this->aeropuertos.insertar(IATA,aux);
+        this->ciudad_IATA.insertar(ciudad,aux);
     }
     //
     file.close();
@@ -45,6 +40,13 @@ bool ABM::cancelarOperacion(){
     return ( operacion == 1 );
 }
 
+void ABM::preguntarCiudad(string &ciudad){
+    cout << "Introduza el nombre de la ciudad que desea consultar su aeropuerto \n";
+    cout << "Atención: si el nombre contiene espacios hay que reemplazarlos por '-'  \n";
+    cout << "Ciudad: ";
+    cin >> ciudad;
+}
+
 /////////// METODOS PUBLICOS ////////////////////
 
 void ABM::administrar(){
@@ -53,12 +55,22 @@ void ABM::administrar(){
         this->menu_usuario.pregunarOpcionUsuario();
         //
         opcion = this->menu_usuario.obtenerOpcionUsuario();
-        if ( opcion == ALTA ){
-            this->alta();
-        } else if ( opcion == CONSULTA ){
-            cout << "Consulta un aeropuerto" << std::endl;
-        } else if ( opcion == BAJA ){
-            this->baja();
+        switch (opcion){
+            case ALTA:
+                this->alta();
+                break;
+            case CONSULTA:
+                this->consulta();
+                break;
+            case CONSULTA_GENERAL:
+                this->consultaGeneral();
+                break;
+            case BAJA:
+                this->baja();
+                break;
+            default:
+                cout << "La opcíon elegida es invalida." << endl;
+                break;
         }
     } while ( opcion != SALIDA );
 }
@@ -67,14 +79,10 @@ void ABM::alta(){
     cout << "Cargue los datos del nuevo aeropuerto: \n";
     cout << "NOTA: los espacios deben ser reemplazados por '-' \n";
     //
-    string IATA;
-    string nombre;
-    string ciudad;
-    string pais;
+    string IATA, nombre, ciudad, pais;
     double area;
-    int cantidad_terminales;
-    int destinos_nacionales;
-    int destinos_internacionales;
+    int cantidad_terminales, destinos_nacionales, destinos_internacionales;
+    Aeropuerto* aux;
     //
     bool valido = false;
     bool cancela = false;
@@ -116,30 +124,71 @@ void ABM::alta(){
     cout << "Destinos Internacionales del Aeropuerto: ";
     cin >> destinos_internacionales;
     //
-    this->datos_aeropuertos.alta(new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales),1);
-    this->aeropuertos.insertar(IATA,this->datos_aeropuertos.buscarDato(1));
+    aux = new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales);
+    this->datos_aeropuertos.alta(aux,1);
+    this->aeropuertos.insertar(IATA,aux);
+    this->ciudad_IATA.insertar(ciudad,aux);
     cout << "Los datos fueron cargados con exito." << std::endl;
 }
 
 void ABM::baja(){
-    string IATA;
+    string ciudad;
+    bool cancela = false;
+    bool valido = false;
     //
-    cout << "Introduza el codigo IATA del aeropuerto que desea eliminar \n";
-    cin >> IATA;
+    while ( !valido && !cancela ){
+        this->preguntarCiudad(ciudad);
+        //
+        if ( !this->aeropuertos.estaEnArbol(ciudad) ){
+            valido = true;
+        } else {
+            cout << "El aeropuerto no se encuentra en los datos del sistema" << endl;
+            cancela = this->cancelarOperacion();
+        }
+    }
     //
-    Aeropuerto* aeropuerto_buscado = this->aeropuertos.obtenerDato(IATA);
-    if ( aeropuerto_buscado == nullptr ){
-        cout << "El aeropuerto no se encuentra en los datos del sistema" << endl;
+    Aeropuerto* buscado = this->aeropuertos.obtenerDato(ciudad);
+    int posicion_en_lista = this->datos_aeropuertos.buscarPosicion(buscado);
+    //
+    this->aeropuertos.eliminar(ciudad);
+    this->ciudad_IATA.eliminar(buscado->obtenerCiudad());
+    this->datos_aeropuertos.baja(posicion_en_lista);
+    cout << "El aeropuerto: " << buscado->obtenerNombre() << " fue eliminado con exito!" << endl;
+    delete buscado;
+}
+
+void ABM::consulta(){
+    string ciudad;
+    bool valido = false;
+    bool cancela = false;
+    //
+    while ( !valido && !cancela ){
+        this->preguntarCiudad(ciudad);
+        //
+        if ( this->ciudad_IATA.estaEnArbol(ciudad) ){
+            valido = true;
+        } else {
+            cout << "La ciudad introducida no tiene un aeropuerto asociado en los datos." << endl;
+            cancela = this->cancelarOperacion();   
+        }
+    }
+    //
+    if ( cancela ){
+        return;
     } else {
-        //
-        int posicion_en_lista = this->datos_aeropuertos.buscarPosicion(aeropuerto_buscado);
-        //
-        this->aeropuertos.eliminar(IATA);
-        this->datos_aeropuertos.baja(posicion_en_lista);
-        //
-        cout << "El aeropuerto: " << aeropuerto_buscado->obtenerNombre() << " fue eliminado con exito!" << endl;
-        //
-        delete aeropuerto_buscado;
+        Aeropuerto* buscado = this->ciudad_IATA.obtenerDato(ciudad);
+        buscado->mostrarDatos();
+    }
+}
+
+void ABM::consultaGeneral(){
+    if ( this->datos_aeropuertos.esVacia() ){
+        cout << "No se encuentran datos de ningun aeropuerto " << endl;
+    } else {
+        this->datos_aeropuertos.reiniciarCursor();
+        while ( !this->datos_aeropuertos.finalCursor() ){
+            this->datos_aeropuertos.moverCursor()->mostrarDatos();
+        }
     }
 }
 
@@ -151,7 +200,7 @@ ABM::~ABM(){
     file.open("aeropuertos.txt",std::ios::out);
     //
     Aeropuerto* aux;
-    while ( !this->datos_aeropuertos.es_vacia() ){
+    while ( !this->datos_aeropuertos.esVacia() ){
         aux = this->datos_aeropuertos.buscarDato(1);
         //
         file << aux->obtenerIATA() << " ";
