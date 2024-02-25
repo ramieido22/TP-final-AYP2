@@ -93,4 +93,5 @@ Nodo::~Nodo(){
     }
     //
     this->data = nullptr;
+    this->padre = nullptr;
 }

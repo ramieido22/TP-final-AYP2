@@ -4,6 +4,7 @@
 #define AEROPUERTO_H_INCLUDED
 
 #include <iostream>
+#include <fstream>
 
 using std::string;
 
@@ -14,9 +15,9 @@ class Aeropuerto {
         string ciudad;
         string pais;
         double area;
-        int entero1;
-        int entero2;
-        int entero3;
+        int cantidad_terminales;
+        int destinos_nacionales;
+        int destinos_internacionales;
 
     public:
 
@@ -27,16 +28,29 @@ class Aeropuerto {
          * Genera una instancia de la
          * clase Aeropuerto
         */
-        Aeropuerto(string IATA,string nombre,string ciudad,string pais,double area,int entero1,int entero2,int entero3);
+        Aeropuerto(string IATA,string nombre,string ciudad,string pais,double area,int cantidad_terminales,int destinos_nacionales,int destinos_internacionales);
 
         /**
-         * Constructor de copia
-         * Genera una instancia de la
-         * clase Aeropuerto en base a la
-         * instancia dada
+         * POST: imprime los datos del
+         * aeropuerto por pantalla
         */
-        // Aeropuerto(const Aeropuerto* pn);
+        void mostrarDatos();
 
+        string obtenerIATA();
+
+        string obtenerNombre();
+        
+        string obtenerCiudad();
+
+        string obtenerPais();
+
+        double obtenerArea();
+
+        int obtenerCantidadTerminales();
+
+        int obtenerDestinosNacionales();
+
+        int obtenerDestinosInternacionales();
 };
 
 #endif // AEROPUERTO_H_INCLUDED

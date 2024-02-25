@@ -30,8 +30,16 @@ class ABB {
         */
         void eliminarHoja(Nodo* nodo);
 
+        /**
+         * POST: devuelve el nodo con el dato mas grande
+         * comparado con el dato del nodo pasado como parametro
+        */
         Nodo* obtenerInmediatoPredecesor(Nodo *nodo);
 
+        /**
+         * POST: devuelve el nodo con el dato mas chico
+         * comparado con el dato del nodo pasado como parametro
+        */
         Nodo* obtenerInmediatoSucesor(Nodo *nodo);
 
         /**

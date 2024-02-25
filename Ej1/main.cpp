@@ -8,6 +8,7 @@ using std::endl;
 int main(void){
     //
     ABM administrador;
+    administrador.administrar();
     //
     return 0;
 }

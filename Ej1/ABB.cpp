@@ -12,7 +12,6 @@ ABB::ABB(){
 
 Nodo* ABB::buscar(Nodo* nodo,string dato){
     if ( nodo != nullptr ){
-        std::cout << nodo->obtenerClave() << std::endl;
         string clave_padre = nodo->obtenerClave();
         //
         if ( clave_padre < dato ){
@@ -42,7 +41,7 @@ Nodo* ABB::insertar(Nodo *nodo,string dato){
         // es mayor que el nodo padre
         Nodo* derecho = nodo->obtenerHijoDerecho();
         if ( derecho != nullptr ){
-            this->insertar(derecho,dato);
+            return this->insertar(derecho,dato);
         } else {
             Nodo* nuevo = new Nodo(dato,nodo);
             nodo->cambiarHijoDerecho(nuevo);
@@ -53,7 +52,7 @@ Nodo* ABB::insertar(Nodo *nodo,string dato){
         // es menor que el nodo padre
         Nodo* izquierdo = nodo->obtenerHijoIzquierdo();
         if ( izquierdo != nullptr ){
-            this->insertar(izquierdo,dato);
+            return this->insertar(izquierdo,dato);
         } else {
             Nodo* nuevo = new Nodo(dato,nodo);
             nodo->cambiarHijoIzquierdo(nuevo);
@@ -158,8 +157,8 @@ bool ABB::insertar(string clave,Aeropuerto* datos){
     //
     if ( this->raiz == nullptr ){
         this->raiz = new Nodo(clave,nullptr);
-        this->cantidad_elementos++;
         this->raiz->cambiarDato(datos);
+        this->cantidad_elementos++;
         return true;
     }
     //

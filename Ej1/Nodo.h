@@ -91,6 +91,12 @@ class Nodo {
         */
         void cambiarPadre(Nodo *pn);
 
+        /**
+         * PRE: pasar como parametro 
+         * la nueva referencia de datos
+         * POST: se establece la referencia
+         * como referencia a los datos del puntero
+        */
         void cambiarDato(Aeropuerto* pn);
 
         /**
