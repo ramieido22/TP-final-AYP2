@@ -21,6 +21,12 @@ class Aeropuerto {
 
     public:
 
+        /**
+         * Constructor
+         * Default que genera
+         * la instancia de la
+         * clase Aeropuerto
+        */
         Aeropuerto() = default;
 
         /**

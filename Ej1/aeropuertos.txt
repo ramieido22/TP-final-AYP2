@@ -3,3 +3,4 @@ EZE Ministro-Pistarini Ezeiza Argentina 34.75 4 12 46
 LAX Aeropuerto-Internacional-de-los-Angeles Los-Angeles EEUU 14 9 87 69
 AEP Aeroparque-Jorge-Newbery Ciudad-buenos-aires Argentina 34.75 4 12 46
 BHI Aeropuerto-Comandante-Espora Bahía-Blanca Argentina 45 35 23 10
+CNQ Aeropuerto-Internacional-Doctor-Fernando-Piragine-Niveyro Corrientes Argentina 20 4 15 0
