@@ -6,6 +6,8 @@
 #include "Menu.h"
 #include "Aeropuerto.h"
 #include "Lista.h"
+#include "Code_Aeropuerto.h"
+
 
 class ABM {
     private:
@@ -18,10 +20,12 @@ class ABM {
         ABB<string,Aeropuerto> aeropuertos;
 
         /**
-         * Arbol donde se graban los ciudades
-         * con una referencia a los datos
+         * Tabla de ciudad y codigo IATA,
+         * donde se realiza la busqueda para
+         * obtener el codigo IATA a traves de la
+         * ciudad
         */
-       ABB<string,Aeropuerto> ciudad_IATA;
+       Lista<Code_Aeropuerto> ciudad_IATA;
         
         /**
          * Pila en donde se graban los datos que

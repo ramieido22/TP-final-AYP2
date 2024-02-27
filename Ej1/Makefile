@@ -21,6 +21,8 @@ obj/Aeropuerto.o: Aeropuerto.cpp Aeropuerto.h
 	$(GCC) $(GCCFLAGS) -c Aeropuerto.cpp -o $@
 obj/Menu.o: Menu.cpp Menu.h
 	$(GCC) $(GCCFLAGS) -c Menu.cpp -o $@
+obj/Code_Aeropuerto.o: Code_Aeropuerto.h Code_Aeropuerto.cpp
+	$(GCC) $(GCCFLAGS) -c Code_Aeropuerto.cpp -o $@
 
 .PHONY: full_clean clean test
 

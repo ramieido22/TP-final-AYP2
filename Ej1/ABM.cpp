@@ -15,11 +15,13 @@ ABM::ABM(){
     int cantidad_terminales,destinos_nacionales,destinos_internacionales;
     Aeropuerto* aux;
     //
+    int i=1;
     while ( file >> IATA && file >> nombre && file >> ciudad && file >> pais && file >> area && file >> cantidad_terminales && file >> destinos_nacionales && file >> destinos_internacionales ){
         aux = new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales);
-        this->datos_aeropuertos.alta(aux,1);
+        this->datos_aeropuertos.alta(aux,i);
         this->aeropuertos.insertar(IATA,aux);
-        this->ciudad_IATA.insertar(ciudad,aux);
+        this->ciudad_IATA.alta(Code_Aeropuerto(IATA,ciudad),1);
+        i++;
     }
     //
     file.close();
@@ -50,6 +52,8 @@ void ABM::preguntarCiudad(string &ciudad){
 /////////// METODOS PUBLICOS ////////////////////
 
 void ABM::administrar(){
+    cout << "Arrancando el administrador de aeropuertos" << endl;
+    //
     OPCION_MENU opcion;
     do {
         this->menu_usuario.pregunarOpcionUsuario();
@@ -67,6 +71,9 @@ void ABM::administrar(){
                 break;
             case BAJA:
                 this->baja();
+                break;
+            case SALIDA:
+                cout << "Cerrando el programa, Gracias por usarlo!" << endl;
                 break;
             default:
                 cout << "La opcíon elegida es invalida." << endl;
@@ -127,7 +134,7 @@ void ABM::alta(){
     aux = new Aeropuerto(IATA,nombre,ciudad,pais,area,cantidad_terminales,destinos_nacionales,destinos_internacionales);
     this->datos_aeropuertos.alta(aux,1);
     this->aeropuertos.insertar(IATA,aux);
-    this->ciudad_IATA.insertar(ciudad,aux);
+    this->ciudad_IATA.alta(Code_Aeropuerto(IATA,ciudad),1);
     cout << "Los datos fueron cargados con exito." << std::endl;
 }
 
@@ -135,11 +142,15 @@ void ABM::baja(){
     string ciudad;
     bool cancela = false;
     bool valido = false;
+    Code_Aeropuerto codigo;
+    int indice_tabla;
     //
     while ( !valido && !cancela ){
         this->preguntarCiudad(ciudad);
+        codigo.cambiarCiudad(ciudad);
+        indice_tabla = this->ciudad_IATA.buscarPosicion(codigo);
         //
-        if ( this->ciudad_IATA.estaEnArbol(ciudad) ){
+        if ( indice_tabla > 0 ){
             valido = true;
         } else {
             cout << "El aeropuerto no se encuentra en los datos del sistema" << endl;
@@ -148,10 +159,11 @@ void ABM::baja(){
     }
     //
     if ( !cancela ){
-        Aeropuerto* buscado = this->ciudad_IATA.obtenerDato(ciudad);
+        string codigo_IATA = this->ciudad_IATA.buscarDato(indice_tabla).obtenerIATA();
+        Aeropuerto* buscado = this->aeropuertos.obtenerDato(codigo_IATA);
         int posicion_en_lista = this->datos_aeropuertos.buscarPosicion(buscado);
         //
-        this->ciudad_IATA.eliminar(ciudad);
+        this->ciudad_IATA.baja(indice_tabla);
         this->aeropuertos.eliminar(buscado->obtenerIATA());
         this->datos_aeropuertos.baja(posicion_en_lista);
         cout << "El aeropuerto: " << buscado->obtenerNombre() << " fue eliminado con exito!" << endl;
@@ -163,11 +175,15 @@ void ABM::consulta(){
     string ciudad;
     bool valido = false;
     bool cancela = false;
+    Code_Aeropuerto codigo;
+    int indice_tabla;
     //
     while ( !valido && !cancela ){
         this->preguntarCiudad(ciudad);
+        codigo.cambiarCiudad(ciudad);
+        indice_tabla = this->ciudad_IATA.buscarPosicion(codigo);
         //
-        if ( this->ciudad_IATA.estaEnArbol(ciudad) ){
+        if ( indice_tabla > 0 ){
             valido = true;
         } else {
             cout << "La ciudad introducida no tiene un aeropuerto asociado en los datos." << endl;
@@ -178,7 +194,8 @@ void ABM::consulta(){
     if ( cancela ){
         return;
     } else {
-        Aeropuerto* buscado = this->ciudad_IATA.obtenerDato(ciudad);
+        string codigo_IATA = this->ciudad_IATA.buscarDato(indice_tabla).obtenerIATA();
+        Aeropuerto* buscado = this->aeropuertos.obtenerDato(codigo_IATA);
         buscado->mostrarDatos();
     }
 }
