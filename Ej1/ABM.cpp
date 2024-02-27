@@ -90,6 +90,8 @@ void ABM::alta(){
     double area;
     int cantidad_terminales, destinos_nacionales, destinos_internacionales;
     Aeropuerto* aux;
+    Code_Aeropuerto codigo;
+    int indice_tabla;
     //
     bool valido = false;
     bool cancela = false;
@@ -101,8 +103,18 @@ void ABM::alta(){
         cout << "Codigo del Aeropuerto IATA: ";
         cin >> IATA;
         //
+        cout << "Ciudad del Aeropuerto: ";
+        cin >> ciudad;
+        codigo.cambiarCiudad(ciudad);
+        //
         if ( !this->aeropuertos.estaEnArbol(IATA) ){
-            valido = true;
+            indice_tabla = this->ciudad_IATA.buscarPosicion(codigo);
+            if ( indice_tabla == 0 ){
+                valido = true;
+            } else {
+                cout << "La ciudad ya tiene un aeropuerto cargado anteriormente." << std::endl;
+                cancela = this->cancelarOperacion();
+            }
         } else {
             cout << "El aeropuerto ya fue cargado anteriormente." << std::endl;
             cancela = this->cancelarOperacion();
@@ -112,9 +124,6 @@ void ABM::alta(){
     if ( cancela ){
         return;
     }
-    //
-    cout << "Ciudad del Aeropuerto: ";
-    cin >> ciudad;
     //
     cout << "Pais del Aeropuerto: ";
     cin >> pais;

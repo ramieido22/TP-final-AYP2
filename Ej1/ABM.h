@@ -2,7 +2,7 @@
 #ifndef ABMAEROPUERTOS_H_INCLUDED
 #define ABMAEROPUERTOS_H_INCLUDED
 
-#include "ABB.hpp"
+#include "ABB.h"
 #include "Menu.h"
 #include "Aeropuerto.h"
 #include "Lista.h"

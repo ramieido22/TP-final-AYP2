@@ -15,7 +15,7 @@ $(EXE): $(OBJS)
 
 obj/main.o: main.cpp ABM.h
 	$(GCC) $(GCCFLAGS) -c main.cpp -o $@
-obj/ABM.o: ABM.cpp ABM.h ABB.hpp Lista.h Menu.h Aeropuerto.h Nodo_L.h Nodo.hpp
+obj/ABM.o: ABM.cpp ABM.h ABB.h Lista.h Menu.h Aeropuerto.h Nodo_L.h Nodo.h
 	$(GCC) $(GCCFLAGS) -c ABM.cpp -o $@
 obj/Aeropuerto.o: Aeropuerto.cpp Aeropuerto.h
 	$(GCC) $(GCCFLAGS) -c Aeropuerto.cpp -o $@
@@ -30,8 +30,8 @@ test:
 	$(TESTER) $(TESTEROPTIONS) $(EXE)
 
 clean:
-	rm $(EXE)
+	rm -f $(EXE)
 
 full_clean:
-	rm $(EXE)
-	rm $(OBJS)
+	rm -f $(EXE)
+	rm -f $(OBJS)

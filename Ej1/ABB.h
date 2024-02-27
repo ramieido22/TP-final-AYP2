@@ -2,7 +2,7 @@
 #ifndef ABB_H_INCLUDED
 #define ABB_H_INCLUDED
 
-#include "Nodo.hpp"
+#include "Nodo.h"
 
 /**
  * Para usar la clave, el parametero
