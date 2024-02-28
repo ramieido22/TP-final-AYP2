@@ -149,6 +149,9 @@ template<typename K, class V>
 Nodo<V>* Hash<K,V>::buscar_nodo(K clave) {
     int pos = funcion_hash(clave);
     int pos_inicial = pos;
+    if tabla_cerrada[pos].obtener_estado== VACIO{
+        return nullptr;
+    }
     while (tabla_cerrada[pos] != nullptr && tabla_cerrada[pos]->obtener_clave() != clave) {
         pos = (pos + 1);
         if (pos == tamanio){
