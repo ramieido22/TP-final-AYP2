@@ -21,4 +21,8 @@ Aeropuerto* crear_nuevo_aeropuerto();
 //post: Realiza la logica de la eleccion de usuario en las opciones del Aeropuerto
 void resolucion_opciones_aeropuerto(int eleccion,Aeropuerto* aeropuerto,Hash<string,Aeropuerto>* hash_aeropuertos,Tabla_iata* tabla);
 
+//pre: --
+//post: Realiza la logica de la eleccion de usuario en el hash
+void definir_estado_hash(int eleccion, Hash<string, Aeropuerto>* hash_aeropuertos);
+
 #endif //FUNCIONES_H

@@ -108,3 +108,12 @@ void resolucion_opciones_aeropuerto(int eleccion,Aeropuerto* aeropuerto,Hash<str
             }
     }
 }
+
+void definir_estado_hash(int eleccion, Hash<string, Aeropuerto>* hash_aeropuertos){
+    if (eleccion == 1){
+        hash_aeropuertos->dar_funcionalidad(CERRADO);
+    } else{
+        hash_aeropuertos->dar_funcionalidad(ABIERTO);
+    }
+    hash_aeropuertos->crear_hash_abierto_o_cerrado();
+}
