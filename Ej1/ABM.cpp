@@ -36,7 +36,7 @@ int ABM::cantidad(){
 bool ABM::cancelarOperacion(){
     int operacion;
     //
-    cout << "Si desea cancelar la operación marque 1: " ;
+    cout << "Si desea cancelar la operación marque 1 sino marque 0: " ;
     cin >> operacion;
     //
     return ( operacion == 1 );
