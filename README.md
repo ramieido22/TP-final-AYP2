@@ -12,6 +12,6 @@ TP final para algoritmos y programación 2
 
 ###### Temas del TP:
 
-- Ej1: __ABB__
-- Ej2: __Hashing__
-- Ej3: __Grafos__
+- Ej1: __ABB__ (Rami Aleid)
+- Ej2: __Hashing__ (Nicolas Daniel Graeff Dieguez)
+- Ej3: __Grafos__ (Felipe Caserio Longoni)
