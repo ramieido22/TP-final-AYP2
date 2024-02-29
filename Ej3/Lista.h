@@ -39,7 +39,7 @@ public:
     string obtenerPais(int posicion);
 
     //post: agrega un nuevo elemento a la lista
-    void agregar(string codigo_iata, string nombre_aeropuerto, string ciudad, string pais);
+    void agregar(string codigoIATA, string nombreAeropuerto, string ciudad, string pais);
 
     ~Lista();
 private:
@@ -81,8 +81,8 @@ int Lista<Tipo>::obtenerPosicion(string nombre) {
 }
 
 template < typename Tipo >
-void Lista<Tipo>::agregar(string codigo_iata, string nombre_aeropuerto, string ciudad, string pais) {
-    Nodo<Tipo>* nuevoNodo = new Nodo<Tipo>(codigo_iata, nombre_aeropuerto, ciudad, pais);
+void Lista<Tipo>::agregar(string codigoIATA, string nombreAeropuerto, string ciudad, string pais) {
+    Nodo<Tipo>* nuevoNodo = new Nodo<Tipo>(codigoIATA, nombreAeropuerto, ciudad, pais);
     if(primero == nullptr){
         primero = nuevoNodo;
         ultimo = primero;

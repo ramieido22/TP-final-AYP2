@@ -1,18 +1,18 @@
 #include "Vuelo.h"
 
-Vuelo::Vuelo(string codigo_iata, string nombre_aeropuerto, string ciudad, string pais) {
-    this->codigo_iata = codigo_iata;
-    this->nombre_aeropuerto = nombre_aeropuerto;
+Vuelo::Vuelo(string codigoIATA, string nombreAeropuerto, string ciudad, string pais) {
+    this->codigoIATA = codigoIATA;
+    this->nombreAeropuerto = nombreAeropuerto;
     this->ciudad = ciudad;
     this->pais = pais;
 }
 
 string Vuelo::obtenerCodigoIATA() {
-    return this->codigo_iata;
+    return this->codigoIATA;
 }
 
 string Vuelo::obtenerNombreAeropuerto() {
-    return this->nombre_aeropuerto;
+    return this->nombreAeropuerto;
 }
 
 string Vuelo::obtenerCiudad() {

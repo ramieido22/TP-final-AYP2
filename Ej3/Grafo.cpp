@@ -8,9 +8,9 @@ Grafo::Grafo() {
     algoritmoCaminoMinimo = nullptr;
 }
 
-void Grafo::agregarVertice(string codigo_iata, string nombre_aeropuerto, string ciudad, string pais) {
+void Grafo::agregarVertice(string codigoIATA, string nombreAeropuerto, string ciudad, string pais) {
     agrandarMatrizDeAdyacencia();
-    vuelos -> agregar(codigo_iata, nombre_aeropuerto, ciudad, pais);
+    vuelos -> agregar(codigoIATA, nombreAeropuerto, ciudad, pais);
 }
 
 void Grafo::mostrarGrafo() {
@@ -36,22 +36,23 @@ void Grafo::agregarCamino(string origen, string destino, int peso) {
 
 void Grafo::llenarVuelos() {
     ifstream archivo;
-    archivo.open("vuelos.txt");
+    archivo.open(TEXTO);
     string palabra;
-    int costo_vuelo;
+    int costoVuelo;
 
     while(archivo >> palabra) {
-        string codigo_iata_partida = palabra;
-        if(vuelos ->obtenerPosicion(codigo_iata_partida) == POSICION_NO_ENCONTRADA) {
+        string codigoIATApartida = palabra;
+
+        if(vuelos ->obtenerPosicion(codigoIATApartida) == POSICION_NO_ENCONTRADA) {
             archivo >> palabra;
-            string nombre_aeropuerto_partida = palabra;
+            string nombreAeropuertoPartida = palabra;
             archivo >> palabra;
-            string ciudad_partida = palabra;
+            string ciudadPartida = palabra;
             archivo >> palabra;
-            string pais_partida = palabra;
+            string paisPartida = palabra;
             archivo >> palabra;
 
-            agregarVertice(codigo_iata_partida, nombre_aeropuerto_partida, ciudad_partida, pais_partida);
+            agregarVertice(codigoIATApartida, nombreAeropuertoPartida, ciudadPartida, paisPartida);
         }
         else {
             for(int i = 1; i <= 4; i++) {
@@ -59,17 +60,17 @@ void Grafo::llenarVuelos() {
             }
         }
 
-        string codigo_iata_destino = palabra;
-        if(vuelos ->obtenerPosicion(codigo_iata_destino) == POSICION_NO_ENCONTRADA) {
+        string codigoIATAdestino = palabra;
+        if(vuelos ->obtenerPosicion(codigoIATAdestino) == POSICION_NO_ENCONTRADA) {
             archivo >> palabra;
-            string nombre_aeropuerto_destino = palabra;
+            string nombreAeropuertoDestino = palabra;
             archivo >> palabra;
-            string ciudad_destino = palabra;
+            string ciudadDestino = palabra;
             archivo >> palabra;
-            string pais_destino = palabra;
+            string paisDestino = palabra;
             archivo >> palabra;
 
-            agregarVertice(codigo_iata_destino, nombre_aeropuerto_destino, ciudad_destino, pais_destino);
+            agregarVertice(codigoIATAdestino, nombreAeropuertoDestino, ciudadDestino, paisDestino);
         }
         else {
             for(int i = 1; i <= 4; i++) {
@@ -77,40 +78,40 @@ void Grafo::llenarVuelos() {
             }
         }
 
-        stringstream palabra_convertida;
-        palabra_convertida << palabra;
-        palabra_convertida >> costo_vuelo;
+        stringstream palabraConvertida;
+        palabraConvertida << palabra;
+        palabraConvertida >> costoVuelo;
 
-        agregarCamino(codigo_iata_partida, codigo_iata_destino, costo_vuelo);
+        agregarCamino(codigoIATApartida, codigoIATAdestino, costoVuelo);
     }
 }
 
-string Grafo::pedirCodigoIATAPartida() {
+string Grafo::pedirCodigoIATApartida() {
     cout << "Ingrese el codigo IATA de partida:" << endl;
-    string codigo_IATA_partida;
+    string codigoIATApartida;
     int vueloPartida;
     do {
         if (vueloPartida == POSICION_NO_ENCONTRADA) {
             cout << "El codigo IATA de partida no fue encontrado, ingrese otro codigo IATA de partida:" << endl;
         }
-        cin >> codigo_IATA_partida;
-        vueloPartida = vuelos ->obtenerPosicion(codigo_IATA_partida);
+        cin >> codigoIATApartida;
+        vueloPartida = vuelos ->obtenerPosicion(codigoIATApartida);
     } while (vueloPartida == POSICION_NO_ENCONTRADA);
-    return codigo_IATA_partida;
+    return codigoIATApartida;
 }
 
-string Grafo::pedirCodigoIATADestino() {
+string Grafo::pedirCodigoIATAdestino() {
     cout << "Ingrese el codigo IATA de destino:" << endl;
-    string codigo_IATA_destino;
+    string codigoIATAdestino;
     int vueloDestino;
     do {
         if (vueloDestino == POSICION_NO_ENCONTRADA) {
             cout << "El codigo IATA de destino no fue encontrado, ingrese otro codigo IATA de destino:" << endl;
         }
-        cin >> codigo_IATA_destino;
-        vueloDestino = vuelos ->obtenerPosicion(codigo_IATA_destino);
+        cin >> codigoIATAdestino;
+        vueloDestino = vuelos ->obtenerPosicion(codigoIATAdestino);
     } while (vueloDestino == POSICION_NO_ENCONTRADA);
-    return codigo_IATA_destino;
+    return codigoIATAdestino;
 }
 
 void Grafo::caminoMinimo(string origen, string destino) {

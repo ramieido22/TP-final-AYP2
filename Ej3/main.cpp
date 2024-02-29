@@ -5,11 +5,11 @@ int main() {
     Grafo grafo;
 
     grafo.llenarVuelos();
-    string codigo_IATA_partida = grafo.pedirCodigoIATAPartida();
-    string codigo_IATA_destino = grafo.pedirCodigoIATADestino();
+    string codigoIATApartida = grafo.pedirCodigoIATApartida();
+    string codigoIATAdestino = grafo.pedirCodigoIATAdestino();
 
     grafo.usarFloyd();
-    grafo.caminoMinimo(codigo_IATA_partida, codigo_IATA_destino);
+    grafo.caminoMinimo(codigoIATApartida, codigoIATAdestino);
 
     return 0;
 }

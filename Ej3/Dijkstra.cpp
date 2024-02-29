@@ -85,25 +85,24 @@ void Dijkstra::mostrarRecorrido(int origen, int destino) {
         cout << "      Codigo IATA - Aeropuerto - Ciudad - Pais - Precio" << endl;
         cout << "De    " << vuelos->obtenerCodigoIATA(destino + 1) << " " << vuelos->obtenerNombreAeropuerto(destino + 1) << " " << vuelos->obtenerCiudad(destino + 1) << " " << vuelos->obtenerPais(destino + 1) << endl;
         int i = 1;
-        int destino_aux = destino;
+        int destinoAux = destino;
         do{
             destino = recorrido[destino];
             cout << "hasta " << vuelos->obtenerCodigoIATA(destino + 1) << " " << vuelos->obtenerNombreAeropuerto(destino + 1) << " " << vuelos->obtenerCiudad(destino + 1) << " " << vuelos->obtenerPais(destino + 1) << " " << calcularPrecio(i) << endl;
             i++;
         }while(origen != destino);
-        cout << "Costo Total:" << distancia[destino_aux] << endl;
+        cout << "Costo Total:" << distancia[destinoAux] << endl;
     }
-    mostrarIteracion(0);
 }
 
 int Dijkstra::calcularPrecio(int posicion) {
     int precio = distancia[posicion];
-    int ultimo_precio = precio;
+    int ultimoPrecio = precio;
     for (int i = posicion - 1; 0 < i; i--) {
-        if ((distancia[i] != INFINITO) && (distancia[i] != ultimo_precio)) {
+        if ((distancia[i] != INFINITO) && (distancia[i] != ultimoPrecio)) {
             cout << distancia[i] << endl;
             precio -= distancia[i];
-            ultimo_precio = distancia[i];
+            ultimoPrecio = distancia[i];
         }
     }
     return precio;

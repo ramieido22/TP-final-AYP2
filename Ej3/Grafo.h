@@ -9,6 +9,8 @@
 
 using namespace std;
 
+const string TEXTO = "vuelos.txt";
+
 class Grafo {
 /*ATRIBUTOS*/
 private:
@@ -45,17 +47,17 @@ public:
     Grafo();
     //pre: No hay vertices repetidos en nombre
     //post: agrega un nuevo vertice al grafo
-    void agregarVertice(string codigo_iata, string nombre_aeropuerto, string ciudad, string pais);
+    void agregarVertice(string codigoIATA, string nombreAeropuerto, string ciudad, string pais);
 
     //pre: el texto tiene que tener escrita 7 palabras por linea, la ultima siendo un numero
     //post: llena la matriz con los datos encontrados en el texto
     void llenarVuelos();
 
     //post: le pide al usuario que ingrese un codigo IATA para eligir una estacion de partida, si la estacion es incorrecta pide un reingreso
-    string pedirCodigoIATAPartida();
+    string pedirCodigoIATApartida();
 
     //post: le pide al usuario que ingrese un codigo IATA para eligir una estacion de destino, si la estacion es incorrecta pide un reingreso
-    string pedirCodigoIATADestino();
+    string pedirCodigoIATAdestino();
 
     //pre: se debe tener un algortimo para calcular el camino mínimo previamente elegido
     //post: muestra por terminal el camino mínimo desde un origen a un destino
